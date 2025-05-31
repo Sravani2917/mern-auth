@@ -22,8 +22,8 @@ app.listen(3000, () =>{
     console.log('server listening on port 3000');
 });
 
-app.use("/api/user", userRouter);
-app.use("/api/auth", authRouthes)
+app.use("/api/user", userRoutes);
+app.use("/api/auth", authRoutes)
 
 
 app.use((err, req, next) =>{
