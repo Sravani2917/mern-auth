@@ -1,12 +1,13 @@
 import { useState } from 'react';
-import {Link} from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function SignUp() {
-  const [fornData, setformData] = useState( {} );
-  const [error, setError] = useState();
-  const[loading, setLoading] = useState();
-  const handlechange =(e) => {
-       setformData({...formData, [e.target.id]: e.target.
+  const [formData, setformData] = useState( {} );
+  const [error, setError] = useState(false);
+  const[loading, setLoading] = useState(false);
+  const navigate  = useNavigate();
+  const handlechange = (e) => {
+       setformData({ ...formData, [e.target.id]: e.target.
         value });
   };
   
@@ -15,7 +16,7 @@ export default function SignUp() {
     try {
     setLoading(true);
     setError(false);
-    const res = await fetch('/api/auth/signup', {
+    const res = await fetch('/api/auth/SignUp', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -29,7 +30,7 @@ export default function SignUp() {
     setError(true);
     return;
   }
-  setError(false);
+  navigate('/signIn');
 } catch (error) {
   setLoading(false);
   setError(true);
@@ -46,19 +47,19 @@ export default function SignUp() {
         type='text'
         placeholder='Username' 
         id='username'
-         className='bg-slate-100 p-3rounded-lg'
+         className='bg-slate-100 p-3 rounded-lg'
         onChange={handlechange} 
         />
         <input 
          type="email"
-          placeholder='email'
+          placeholder='Email'
         id='email'
-         className='bg-slate-100 p-3rounded-lg'
+         className='bg-slate-100 p-3 rounded-lg'
         onChange={handlechange} 
         />
         <input 
         type="password"
-         placeholder='password'
+         placeholder='Password'
         id='password' 
         className='bg-slate-100 p-3 rounded-lg'
         onChange={handlechange} 
@@ -71,7 +72,7 @@ export default function SignUp() {
       </form>
       <div className='flex gap-2 mt-5'>
         <p>Have an account?</p>
-        <Link to='/sign-in'>
+        <Link to='/signIn'>
         <span className='text-blue-500'> Sign in</span>
         </Link>
       </div>
